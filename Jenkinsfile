@@ -1,10 +1,7 @@
 pipeline {
-    agent {
-        label 'ansibleslave'
-    }
+    agent any
     parameters {
         choice(name: 'action', choices: 'create\ndestroy', description: 'Create/update or destroy the apache-server')
-        string(name: 'workspace', description: "Name of the workspace")
     }
     stages {
         stage ('Cloning Script') {
@@ -12,7 +9,7 @@ pipeline {
                 checkout([$class: 'GitSCM', 				
 				branches: [[name: "origin/master"]], 
 				userRemoteConfigs: [[
-                url: 'https://github.com/kaza514/terr.git']]])
+                url: 'https://github.com/DivyaBestha/terr.git']]])
             }
         }
         stage('TF Plan') {
@@ -23,8 +20,6 @@ pipeline {
                 script {
                         sh """
                         terraform init
-                        terraform workspace new ${params.workspace} || true
-                        terraform workspace select ${params.workspace}
                         terraform plan
                         """
                     }
@@ -48,8 +43,7 @@ pipeline {
           }
           steps {
             script {
-                        sh """ 
-                        terraform workspace select ${params.workspace}
+                        sh """
                         terraform destroy -auto-approve
                         """
                     }
