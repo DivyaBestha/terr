@@ -6,10 +6,7 @@ pipeline {
     stages {
         stage ('Cloning Script') {
             steps {
-                checkout([$class: 'GitSCM', 				
-				branches: [[name: "origin/master"]], 
-				userRemoteConfigs: [[
-                url: 'https://github.com/DivyaBestha/terr.git']]])
+                git 'https://github.com/DivyaBestha/terr.git'
             }
         }
         stage('TF Plan') {
