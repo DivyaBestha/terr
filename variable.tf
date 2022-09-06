@@ -1,14 +1,14 @@
 variable "aws_region" {
   description = "To use AWS region"
-  default = "ap-south-1"
+  default = "us-west-1"
 }
 
 variable "no_of_instances" {
-default = "3"
+default = "1"
 }
 
 variable "ami" {
-default = "ami-0447a12f28fddb066"
+default = "ami-018d291ca9ffc002f"
 }
 
 variable "instance_type" {
@@ -18,7 +18,7 @@ default = "t2.micro"
 
 variable "key" {
 description = "Server Key file name"
-default = "Sec_key"
+default = "key"
 }
 
 variable "bootstrap_path" {
